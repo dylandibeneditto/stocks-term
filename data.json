@@ -1,0 +1,16 @@
+{
+    "portfolio": [
+        "AAPL",
+        "GOOG",
+        "^DJI"
+    ],
+    "lists": {
+        "tech": [
+            "META",
+            "AAPL",
+            "AMZN",
+            "NFLX",
+            "GOOG"
+        ]
+    }
+}
