@@ -1,5 +1,6 @@
 import sys
 from data_handler import *
+from views.list.list import list_view
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -7,7 +8,7 @@ if __name__ == "__main__":
     if len(args) == 0:
 
         # NOTE: PORTFOLIO LISTING
-        print("[display all portfolio stocks]")
+        list_view(get_portfolio())
 
     elif "-e" in args or "-edit" in args:
 
