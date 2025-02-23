@@ -3,11 +3,15 @@ from data_handler import *
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+
     if len(args) == 0:
-        # MARK: PORTFOLIO LISTING
+
+        # NOTE: PORTFOLIO LISTING
         print("[display all portfolio stocks]")
-    elif "-edit" in args:
-        # MARK: EDIT LIST VIEW
+
+    elif "-e" in args or "-edit" in args:
+
+        # NOTE: EDIT LIST VIEW
         next = None
         try:
             next = args[args.index("-edit")+1]
@@ -17,11 +21,19 @@ if __name__ == "__main__":
             pass
 
         if next:
+
+            # edit list
             print(get_list(next))
+
         else:
+
+            # edit portfolio
             print(get_portfolio())
-    elif "-graph" in args:
-        # MARK: GRAPH VIEW
+
+
+    elif "-g" in args or "-graph" in args:
+
+        # NOTE: GRAPH VIEW
         print("[display graph of the first stock]")
 
         if len(args) == 1:
@@ -30,8 +42,10 @@ if __name__ == "__main__":
         elif len(args) > 2:
             # arg warning : supplying too many tickers
             print("[graphing only supports one stock input]")
-    elif "-list" in args:
-        # MARK: STOCK WATCHLIST VIEW
+
+    elif "-l" in args or "-list" in args:
+
+        # NOTE: STOCK WATCHLIST VIEW
         next = None
         try:
             next = args[args.index("-edit")+1]
@@ -41,13 +55,23 @@ if __name__ == "__main__":
             pass
 
         if next:
+
             # list view of stocks
             print(f"[list view of {next} list]")
+
         else:
+
             # list of all watchlists
             print("[list of watchlists]")
+
+    elif "-h" in args or "-help" in args:
+
+        # NOTE: HELP VIEW
+        print("[help]")
+
     else:
-        # MARK: CUSTOM ARG TICKERS LIST
+
+        # NOTE: CUSTOM ARG TICKERS LIST
         print("[display list of tickers]")
 
 
