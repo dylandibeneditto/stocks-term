@@ -27,3 +27,6 @@ def set_list(name: str, tickers: list[str]) -> None:
 
 def add_list(name: str) -> None:
     set_list(name, [])
+
+def get_theme() -> str:
+    return data["theme"]

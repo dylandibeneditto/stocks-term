@@ -1,8 +1,11 @@
 {
+    "theme": "dark",
     "portfolio": [
         "AAPL",
         "GOOG",
-        "^DJI"
+        "^DJI",
+        "^NDX",
+        "TSLA"
     ],
     "lists": {
         "tech": [

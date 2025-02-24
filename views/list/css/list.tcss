@@ -1,0 +1,28 @@
+StockListView {
+	margin: 1 2;
+	height: auto;
+}
+
+StockListItem {
+	padding: 1 2;
+	height: 6;
+	align-vertical: middle;
+	layout: horizontal;
+}
+
+StockListItem > #name {
+	height: 2;
+}
+
+StockListItem > #spacer {
+	width: 1fr;
+}
+
+StockListItem > #info {
+	width: 8;
+}
+
+StockListItem > #info > * {
+	width: 8;
+	text-align: right;
+}
