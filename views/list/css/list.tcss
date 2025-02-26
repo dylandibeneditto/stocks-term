@@ -26,3 +26,8 @@ StockListItem > #info > * {
 	width: 8;
 	text-align: right;
 }
+
+StockListItem > #list-graph {
+	height: 8;
+	width: 20;
+}

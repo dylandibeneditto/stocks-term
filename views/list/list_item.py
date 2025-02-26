@@ -3,6 +3,7 @@ from textual.widgets import Label
 from textual.containers import Vertical
 from textual.widget import Widget
 
+from views.list.graph import StockListGraph
 from theme import theme
 
 import yfinance as yf
@@ -21,6 +22,7 @@ class StockListItem(Widget):
             yield Label(self.ticker)
             yield Label(self.data.info["longName"], id="long-name")
         yield Label("", id="spacer")
+        yield StockListGraph(self.today)
         with Vertical(id="info"):
             yield Label(self.get_price(), id="price")
             yield Label(self.get_delta(), id="delta")
@@ -34,15 +36,18 @@ class StockListItem(Widget):
         self.query_one("#long-name").styles.color = theme["ter"]
 
     def get_price(self) -> str:
-        price_float = self.today['Close'].iloc[-1]
-        return "{:.2f}".format(price_float)
+        latest_price = self.today["Close"].iloc[-1]
+        return "{:.2f}".format(latest_price)
 
     def get_delta(self) -> str:
-        current_price = self.today['Close'].iloc[-1]
-        start_price = self.today['Open'].iloc[-1]
-        return "{:.2f}".format(current_price-start_price)
+        market_open_price = self.today["Close"].iloc[-2]
+        latest_price = self.today["Close"].iloc[-1]
+        
+        return "{:.2f}".format(latest_price - market_open_price)
 
     def get_perc(self) -> str:
-        current_price = self.today['Close'].iloc[-1]
-        start_price = self.today['Open'].iloc[-1]
-        return "{:.2f}%".format(100*(current_price/start_price)-100)
+        market_open_price = self.today["Close"].iloc[-2]
+        latest_price = self.today["Close"].iloc[-1]
+        
+        percent_change = 100 * (latest_price / market_open_price - 1)
+        return "{:.2f}%".format(percent_change)
