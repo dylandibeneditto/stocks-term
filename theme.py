@@ -1,14 +1,15 @@
 from data_handler import get_theme
+from textual.color import Color
 
 themes = {
     "dark": {
-        "bg": "#101010",
-        "text": "#f1f1f1",
-        "sec": "#717171",
-        "ter": "#555555",
-        "selected_bg": "#151515",
-        "good": "#3B7735",
-        "bad": "#773C35",
+        "bg": Color(16, 16, 16),
+        "text": Color(241, 241, 241),
+        "sec": Color(113, 113, 113),
+        "ter": Color(85, 85, 85),
+        "selected_bg": Color(21, 21, 21),
+        "good": Color(58, 119, 53),
+        "bad": Color(119, 60, 53),
     }
 }
 

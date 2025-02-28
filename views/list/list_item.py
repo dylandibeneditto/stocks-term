@@ -22,7 +22,7 @@ class StockListItem(Widget):
                 yield Label(" ▲ " if float(self.stock.get_change()) > 0 else " ▼ ", id="indicator")
             yield Label(self.stock.get_name(), id="long-name")
         yield Label("", id="spacer")
-        yield StockListGraph(self.stock.get_todays_prices())
+        yield StockListGraph(self.stock)
         with Vertical(id="info"):
             yield Label(self.stock.get_price(), id="price")
             yield Label(self.stock.get_change(), id="delta")
