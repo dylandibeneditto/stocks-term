@@ -26,6 +26,15 @@ class Stock:
     def get_name(self) -> str:
         return self.yTicker.info.get("longName", "Unknown")
 
+    def get_sector(self) -> str:
+        return self.yTicker.info.get("sectorDisp", "Unknown")
+    
+    def get_industry(self) -> str:
+        return self.yTicker.info.get("industryDisp", "Unknown")
+
+    def get_description(self):
+        return self.yTicker.info.get("longBusinessSummary", "Unknown")
+
     def get_price(self) -> str:
         return "{:.2f}".format(self.today_close())
 

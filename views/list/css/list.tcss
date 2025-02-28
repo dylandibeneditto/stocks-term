@@ -5,13 +5,13 @@ StockListView {
 
 StockListItem {
 	padding: 1 2;
-	height: 6;
+	height: 10;
 	align-vertical: middle;
 	layout: horizontal;
 }
 
 StockListItem > #name {
-	height: 2;
+	height: 4;
 }
 
 StockListItem > #spacer {
@@ -29,5 +29,6 @@ StockListItem > #info > * {
 
 StockListItem > #list-graph {
 	height: 8;
-	width: 20;
+	width: 40;
+	padding: 0 2;
 }
