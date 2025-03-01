@@ -4,9 +4,17 @@ from views.list.list import StockListView
 from rich.console import Console
 from rich.panel import Panel
 import yfinance as yf
-from theme import theme
+from theme import theme, themes
 
 c = Console()
+
+def next_arg(args, short: str, long: str):
+    next = None
+    try:
+        next = args[args.index(short if short in args else long)+1]
+    except:
+        pass
+    return next
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -19,15 +27,9 @@ if __name__ == "__main__":
     elif "-e" in args or "-edit" in args:
 
         # NOTE: EDIT LIST VIEW
-        next = None
-        try:
-            next = args[args.index("-edit")+1]
-            if next not in get_lists():
-                add_list(next)
-        except:
-            pass
+        next = next_arg(args, "-e", "-edit")
 
-        if next:
+        if next and next in get_lists():
 
             # edit list
             print(get_list(next))
@@ -53,15 +55,9 @@ if __name__ == "__main__":
     elif "-l" in args or "-list" in args:
 
         # NOTE: STOCK WATCHLIST VIEW
-        next = None
-        try:
-            next = args[args.index("-l" if "-l" in args else "-list")+1]
-            if next not in get_lists():
-                next = None
-        except:
-            pass
+        next = next_arg(args, "-l", "-list")
 
-        if next:
+        if next and next in get_lists():
 
             # list view of stocks
             StockListView(get_list(next)).run()
@@ -77,32 +73,42 @@ if __name__ == "__main__":
         # NOTE: HELP VIEW
         c.print(Panel(f"""
  [b]displaying your portfolio:[/b]
- \tstock\t\t\t\t[{theme["sec"]}]displays your portfolio watchlist[/{theme["sec"]}]
+ \tstock\t\t\t\t[{theme["sec"].hex}]displays your portfolio watchlist[/{theme["sec"].hex}]
  
  [b]commands for showing stocks by ticker:[/b]
- \tstock (ticker)\t\t\t[{theme["sec"]}]will display a detail view of a single stock[/{theme["sec"]}]
- \tstock (ticker) (ticker) ...\t[{theme["sec"]}]will display a list view of each stock provided[/{theme["sec"]}]
+ \tstock (ticker)\t\t\t[{theme["sec"].hex}]will display a detail view of a single stock[/{theme["sec"].hex}]
+ \tstock (ticker) (ticker) ...\t[{theme["sec"].hex}]will display a list view of each stock provided[/{theme["sec"].hex}]
  
- [i {theme["ter"]}]example of one stock\t\t\t'stock aapl'[/i {theme["ter"]}]
- [i {theme["ter"]}]example of multiple stocks\t\t'stock aapl msft ^dji'[/i {theme["ter"]}]
+ [i {theme["ter"].hex}]example of one stock\t\t\t'stock aapl'[/i {theme["ter"].hex}]
+ [i {theme["ter"].hex}]example of multiple stocks\t\t'stock aapl msft ^dji'[/i {theme["ter"].hex}]
  
  [b]editing watchlists:[/b]
- \tstock (-e | -edit) (watchlist)\t[{theme["sec"]}]will create watchlist if it doesn't exist, and allow for adding a removing stocks from it[/{theme["sec"]}]
+ \tstock (-e | -edit) (watchlist)\t[{theme["sec"].hex}]will create watchlist if it doesn't exist, and allow for adding a removing stocks from it[/{theme["sec"].hex}]
  
- [i {theme["ter"]}]example of editing a watchlist:\t'stock -e tech'[/i {theme["ter"]}]
+ [i {theme["ter"].hex}]example of editing a watchlist:\t'stock -e tech'[/i {theme["ter"].hex}]
  
  [b]opening watchlists:[/b]
- \tstock (-l | -list)\t\t[{theme["sec"]}]will display the name of every watchlist[/{theme["sec"]}]
- \tstock (-l | -list) (watchlist)\t[{theme["sec"]}]will open a list view of the watchlist[/{theme["sec"]}]
+ \tstock (-l | -list)\t\t[{theme["sec"].hex}]will display the name of every watchlist[/{theme["sec"].hex}]
+ \tstock (-l | -list) (watchlist)\t[{theme["sec"].hex}]will open a list view of the watchlist[/{theme["sec"].hex}]
  
- [i {theme["ter"]}]example of opening a watchlist\t'stock tech'[/i {theme["ter"]}]
+ [i {theme["ter"].hex}]example of opening a watchlist\t'stock tech'[/i {theme["ter"].hex}]
  
  [b]getting the graph view of a ticker:[/b]
- \tstock (-g | -graph) (ticker)\t[{theme["sec"]}]will open the provided ticker name, defaults to top portfolio stock if (ticker) argument is incorrect[/{theme["sec"]}]
+ \tstock (-g | -graph) (ticker)\t[{theme["sec"].hex}]will open the provided ticker name, defaults to top portfolio stock if (ticker) argument is incorrect[/{theme["sec"].hex}]
  
- [i {theme["ter"]}]example of getting the graph view\t'stock -g aapl'[/i {theme["ter"]}]
-        """, title="stock -help", title_align="left", style=f"{theme["text"]} on {theme["bg"]}"))
+ [i {theme["ter"].hex}]example of getting the graph view\t'stock -g aapl'[/i {theme["ter"].hex}]
+        """, title="stock -help", title_align="left", style=f"{theme["text"].hex} on {theme["bg"].hex}"))
 
+    elif "-s" in args or "-settings" in args:
+
+        # NOTE: THEME SET VIEW
+        next = next_arg(args, "-s", "-settings")
+
+        if next and next in themes:
+            set_theme(next)
+            c.print(f"set theme to {next}")
+        else:
+            c.print(f"unknown theme {next}")
     else:
 
         # NOTE: CUSTOM ARG TICKERS LIST

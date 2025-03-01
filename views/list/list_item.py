@@ -2,6 +2,7 @@ from textual.app import ComposeResult
 from textual.widgets import Label
 from textual.containers import Vertical, Horizontal
 from textual.widget import Widget
+from textual.color import Color
 
 from views.list.graph import StockListGraph
 from stock import Stock
@@ -18,7 +19,7 @@ class StockListItem(Widget):
     def compose(self) -> ComposeResult:
         with Vertical(id="name"):
             with Horizontal():
-                yield Label(self.ticker)
+                yield Label(self.ticker, id="ticker")
                 yield Label(" ▲ " if float(self.stock.get_change()) > 0 else " ▼ ", id="indicator")
             yield Label(self.stock.get_name(), id="long-name")
             yield Label("Sector: " + self.stock.get_sector(), id="sector")
@@ -33,10 +34,13 @@ class StockListItem(Widget):
     def on_mount(self):
         pos = float(self.stock.get_change()) > 0
         col = theme["good" if pos else "bad"]
+        background = Color(*col.rgb, 0.5)
+        self.query_one("#ticker").styles.color = theme["text"]
         self.query_one("#indicator").styles.color = col
-        self.query_one("#delta").styles.background = col
-        self.query_one("#perc").styles.background = col
+        self.query_one("#delta").styles.background = background
+        self.query_one("#perc").styles.background = background
         self.query_one("#long-name").styles.color = theme["sec"]
         self.query_one("#sector").styles.color = theme["ter"]
         self.query_one("#industry").styles.color = theme["ter"]
+        self.query_one("#info").styles.color = theme["text"]
 

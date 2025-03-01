@@ -30,3 +30,11 @@ def add_list(name: str) -> None:
 
 def get_theme() -> str:
     return data["theme"]
+
+def set_theme(theme: str) -> None:
+    new_data = copy.deepcopy(data)
+    new_data["theme"] = theme
+    with open("data.json", "w") as outfile:
+        json.dump(new_data, outfile, indent=4)
+
+                             
