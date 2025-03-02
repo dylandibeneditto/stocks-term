@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     elif "-s" in args or "-settings" in args:
 
-        # NOTE: THEME SET VIEW
+        # NOTE: SETTINGS VIEW
         next = next_arg(args, "-s", "-settings")
 
         if next and next in themes:
